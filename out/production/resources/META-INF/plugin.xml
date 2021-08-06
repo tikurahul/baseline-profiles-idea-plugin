@@ -9,18 +9,18 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationService
-        serviceImplementation="com.rahulrav.baseline.services.ApplicationService"/>
+        serviceImplementation="com.rahulrav.baseline.services.BaselineApplicationService"/>
     <projectService
-        serviceImplementation="com.rahulrav.baseline.services.ProjectService"/>
-    <fileType name="baseline"
-        implementationClass="com.rahulrav.baseline.BaselineFileType"
-        extensions="txt"
+        serviceImplementation="com.rahulrav.baseline.services.BaselineService"/>
+    <fileType name="Baseline Profile Editor"
+        implementationClass="com.rahulrav.baseline.language.BaselineFileType"
+        extensions="baseline"
         language="baseline"
-        fieldName="instance"/>
+        fieldName="language"/>
   </extensions>
 
   <applicationListeners>
-    <listener class="com.rahulrav.baseline.listeners.Listener"
+    <listener class="com.rahulrav.baseline.listeners.BaselineListener"
         topic="com.intellij.openapi.project.ProjectManagerListener"/>
   </applicationListeners>
 </idea-plugin>

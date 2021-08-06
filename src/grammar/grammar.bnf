@@ -1,0 +1,54 @@
+{
+  parserClass = 'com.rahulrav.baseline.Parser'
+  extends = 'com.intellij.extapi.psi.ASTWrapperPsiElement'
+
+  psiPackage = 'com.rahulrav.baseline.psi'
+  psiImplPackage = 'com.rahulrav.baseline.psi.impl'
+  psiClassPrefix = 'B'
+  psiImplClassSuffix = 'Impl'
+
+  extends('.*stmt$')=statement
+  tokens = [
+    FLAGS = 'regexp:HS?P?|SP?|P'
+    ID = 'regexp:[a-zA-Z_$0-9?]'
+    PRIMITIVES = 'regexp:[ZVBSILFD]'
+    COMMENT = 'regexp:#(.*)?'
+    NEWLINE = 'regexp:\r?\n'
+    SPACE = 'regexp:[\s]'
+  ]
+}
+
+root ::= statement*
+
+statement ::=
+      empty_stmt
+    | class_stmt
+    | method_stmt
+    | comment_stmt
+
+class_stmt ::= class_rule NEWLINE
+class_rule ::= [
+    'L' path_component ';' |
+    'L' path_component '/' '**' |
+    'L' path_component '/' '*'
+]
+path_component ::= component ('/'component)*
+component ::= ID+
+
+array_rule ::= '[' [PRIMITIVES | class_rule]
+argument_rule ::= '()' | '(**)' |'(' type (',' type)* ')'
+type ::= PRIMITIVES | array_rule | class_rule
+
+method_stmt ::= FLAGS method_class_rule method_name argument_rule return_type? NEWLINE
+method_class_rule ::= [
+    'L' path_component ';' '->' |
+    'L' path_component '/' '**' '->' |
+    'L' path_component '/' '*' '->'
+]
+method_name ::= match_all | method_component
+method_component ::= [ID+ '*' ID+ | ID+ '*']
+return_type ::= match_all | type
+match_all ::= '**'
+
+comment_stmt ::= COMMENT NEWLINE
+empty_stmt ::= SPACE* NEWLINE
