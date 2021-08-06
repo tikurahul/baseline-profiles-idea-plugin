@@ -7,7 +7,7 @@ import javax.swing.Icon
 class Language : com.intellij.lang.Language("baseline") {
   companion object {
     // The icon
-    val icon by lazy { IconLoader.getIcon("/icons/icon.svg") }
+    val icon by lazy { IconLoader.getIcon("/icons/icon.svg", Language::class.java) }
 
     // The language
     @JvmField
@@ -21,7 +21,7 @@ class BaselineFileType : LanguageFileType(Language.instance) {
   }
 
   override fun getDescription(): String {
-    return "Android Baseline Profiles"
+    return "Android baseline profiles"
   }
 
   override fun getDefaultExtension(): String {

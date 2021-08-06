@@ -43,7 +43,11 @@ changelog {
 }
 
 sourceSets {
-  create("generated").java.srcDir("src/grammar/gen")
+  main {
+    java {
+      srcDir("src/grammar/gen")
+    }
+  }
 }
 
 tasks {
@@ -54,7 +58,7 @@ tasks {
   }
 
   withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
   }
 
   patchPluginXml {
