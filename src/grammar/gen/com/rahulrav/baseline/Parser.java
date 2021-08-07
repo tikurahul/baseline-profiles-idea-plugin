@@ -4,7 +4,7 @@ package com.rahulrav.baseline;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import static com.rahulrav.baseline.psi.TokenTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static com.rahulrav.baseline.ParserUtil.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.TokenSet;
@@ -220,32 +220,28 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT (SPACE | ID)+ NEWLINE
+  // COMMENT_P (SPACE | ID)* NEWLINE
   public static boolean comment_stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment_stmt")) return false;
-    if (!nextTokenIs(b, COMMENT)) return false;
+    if (!nextTokenIs(b, COMMENT_P)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, COMMENT);
+    r = consumeToken(b, COMMENT_P);
     r = r && comment_stmt_1(b, l + 1);
     r = r && consumeToken(b, NEWLINE);
     exit_section_(b, m, COMMENT_STMT, r);
     return r;
   }
 
-  // (SPACE | ID)+
+  // (SPACE | ID)*
   private static boolean comment_stmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment_stmt_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = comment_stmt_1_0(b, l + 1);
-    while (r) {
+    while (true) {
       int c = current_position_(b);
       if (!comment_stmt_1_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "comment_stmt_1", c)) break;
     }
-    exit_section_(b, m, null, r);
-    return r;
+    return true;
   }
 
   // SPACE | ID
@@ -606,17 +602,17 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // empty_stmt
-  //     |class_stmt
+  // class_stmt
   //     | method_stmt
+  //     | empty_stmt
   //     | comment_stmt
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _COLLAPSE_, STATEMENT, "<statement>");
-    r = empty_stmt(b, l + 1);
-    if (!r) r = class_stmt(b, l + 1);
+    r = class_stmt(b, l + 1);
     if (!r) r = method_stmt(b, l + 1);
+    if (!r) r = empty_stmt(b, l + 1);
     if (!r) r = comment_stmt(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;

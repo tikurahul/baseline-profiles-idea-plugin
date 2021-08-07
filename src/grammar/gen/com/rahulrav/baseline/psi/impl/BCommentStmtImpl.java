@@ -29,6 +29,12 @@ public class BCommentStmtImpl extends BStatementImpl implements BCommentStmt {
 
   @Override
   @NotNull
+  public PsiElement getCommentP() {
+    return findNotNullChildByType(COMMENT_P);
+  }
+
+  @Override
+  @NotNull
   public PsiElement getNewline() {
     return findNotNullChildByType(NEWLINE);
   }

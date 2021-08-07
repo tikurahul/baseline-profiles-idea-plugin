@@ -55,8 +55,8 @@ public class Lexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 256 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\12\0\1\3\2\0\1\2\22\0\1\15\2\0\1\14\1\1\3\0\1\12\1\13\1\7\2\0\1\10\1\0\1"+
-    "\4\12\1\1\0\1\5\2\0\1\11\1\1\1\0\32\1\1\6\3\0\1\1\1\0\32\1\205\0");
+    "\12\0\1\4\2\0\1\3\22\0\1\15\2\0\1\1\1\2\3\0\1\13\1\14\1\10\2\0\1\11\1\0\1"+
+    "\5\12\2\1\0\1\6\2\0\1\12\1\2\1\0\32\2\1\7\3\0\1\2\1\0\32\2\205\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -64,8 +64,8 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\1\1\3\1\4\1\5\1\6"+
-    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15";
+    "\1\0\1\1\1\2\1\3\2\4\1\5\1\6\1\7"+
+    "\1\10\1\11\1\12\1\13\1\14\1\15";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[15];
@@ -93,7 +93,7 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\16\0\16\0\34\0\16\0\16\0\16\0\16"+
+    "\0\0\0\16\0\16\0\16\0\34\0\16\0\16\0\16"+
     "\0\16\0\16\0\16\0\16\0\16\0\16\0\16";
 
   private static int [] zzUnpackRowMap() {
@@ -121,8 +121,8 @@ public class Lexer implements FlexLexer {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
-    "\1\12\1\13\1\14\1\15\1\16\1\17\21\0\1\5"+
-    "\12\0";
+    "\1\12\1\13\1\14\1\15\1\16\1\17\22\0\1\6"+
+    "\11\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[42];
@@ -163,7 +163,7 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\1\1\13\11";
+    "\1\0\3\11\1\1\12\11";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[15];
@@ -477,57 +477,57 @@ public class Lexer implements FlexLexer {
             // fall through
           case 14: break;
           case 2: 
-            { return ID;
+            { return COMMENT_P;
             } 
             // fall through
           case 15: break;
           case 3: 
-            { return NEWLINE;
+            { return ID;
             } 
             // fall through
           case 16: break;
           case 4: 
-            { return SLASH;
+            { return NEWLINE;
             } 
             // fall through
           case 17: break;
           case 5: 
-            { return SEMI;
+            { return SLASH;
             } 
             // fall through
           case 18: break;
           case 6: 
-            { return AP;
+            { return SEMI;
             } 
             // fall through
           case 19: break;
           case 7: 
-            { return WILDCARD;
+            { return AP;
             } 
             // fall through
           case 20: break;
           case 8: 
-            { return HY;
+            { return WILDCARD;
             } 
             // fall through
           case 21: break;
           case 9: 
-            { return GT;
+            { return HY;
             } 
             // fall through
           case 22: break;
           case 10: 
-            { return LP;
+            { return GT;
             } 
             // fall through
           case 23: break;
           case 11: 
-            { return RP;
+            { return LP;
             } 
             // fall through
           case 24: break;
           case 12: 
-            { return COMMENT;
+            { return RP;
             } 
             // fall through
           case 25: break;

@@ -61,7 +61,7 @@ class ParserDef : ParserDefinition {
 
     companion object {
         private val SPACES = TokenSet.create(TokenTypes.SPACE)
-        private val COMMENTS = TokenSet.create(TokenTypes.COMMENT)
+        private val COMMENTS = TokenSet.create(TokenTypes.COMMENT_STMT)
         private val FILE = IFileElementType(Language.instance)
     }
 }

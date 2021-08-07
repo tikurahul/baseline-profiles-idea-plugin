@@ -33,7 +33,7 @@ public interface TokenTypes {
   IElementType TYPE = new Element("TYPE");
 
   IElementType AP = new Token("[");
-  IElementType COMMENT = new Token("#");
+  IElementType COMMENT_P = new Token("COMMENT_P");
   IElementType GT = new Token(">");
   IElementType HY = new Token("-");
   IElementType ID = new Token("ID");

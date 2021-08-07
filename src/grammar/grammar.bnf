@@ -20,19 +20,19 @@
     GT = '>'
     LP = '('
     RP = ')'
-    COMMENT = '#'
     SPACE = ' '
+    COMMENT_P = 'regexp:[#]'
     ID = 'regexp:[a-zA-Z_$0-9?]'
-    NEWLINE = 'regexp:\r?\n'
+    NEWLINE = 'regexp:\r\n|\r|\n'
   ]
 }
 
 root ::= statement*
 
 statement ::=
-    empty_stmt
-    |class_stmt
+    class_stmt
     | method_stmt
+    | empty_stmt
     | comment_stmt
 
 class_stmt ::= class_rule NEWLINE
@@ -70,5 +70,5 @@ match_no_args ::= LP RP
 match_all_args ::= LP WILDCARD WILDCARD RP
 flags ::= 'HSP' | 'SP' | 'P' | 'S'
 
-comment_stmt ::= COMMENT (SPACE | ID)+ NEWLINE
+comment_stmt ::= COMMENT_P (SPACE | ID)* NEWLINE
 empty_stmt ::= NEWLINE

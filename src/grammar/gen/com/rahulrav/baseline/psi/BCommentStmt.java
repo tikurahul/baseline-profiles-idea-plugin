@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface BCommentStmt extends BStatement {
 
   @NotNull
+  PsiElement getCommentP();
+
+  @NotNull
   PsiElement getNewline();
 
 }
