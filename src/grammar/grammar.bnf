@@ -1,6 +1,5 @@
 {
   parserClass = 'com.rahulrav.baseline.Parser'
-  parserUtilClass="com.rahulrav.baseline.ParserUtil"
   extends = 'com.intellij.extapi.psi.ASTWrapperPsiElement'
   psiPackage = 'com.rahulrav.baseline.psi'
   psiImplPackage = 'com.rahulrav.baseline.psi.impl'
@@ -9,7 +8,7 @@
   tokenTypeClass = 'com.rahulrav.baseline.psi.Token'
   elementTypeClass = 'com.rahulrav.baseline.psi.Element'
   elementTypeHolderClass = 'com.rahulrav.baseline.psi.TokenTypes'
-  psiImplUtilClass = 'com.rahulrav.baseline.psi.impl.PsiImplUtil'
+  psiImplUtilClass = 'com.rahulrav.baseline.psi.impl.PsiImplUtils'
   extends('.*stmt$')=statement
   tokens = [
     SLASH = '/'

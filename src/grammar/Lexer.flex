@@ -28,6 +28,7 @@ NEWLINE=\r\n|\r|\n
 
 %%
 <YYINITIAL> {
+
   "/"                { return SLASH; }
   ";"                { return SEMI; }
   "["                { return AP; }
@@ -41,7 +42,7 @@ NEWLINE=\r\n|\r|\n
   {COMMENT_P}        { return COMMENT_P; }
   {ID}               { return ID; }
   {NEWLINE}          { return NEWLINE; }
+
 }
 
 [^] { return BAD_CHARACTER; }
-
