@@ -1,30 +1,30 @@
 <idea-plugin>
-  <id>com.rahulrav.baseline-profiles</id>
-  <name>Baseline-Profiles-Idea</name>
-  <vendor>rahulrav</vendor>
+    <id>com.rahulrav.baseline-profiles</id>
+    <name>Baseline-Profiles-Idea</name>
+    <vendor>rahulrav</vendor>
 
-  <!-- Product and plugin compatibility requirements -->
-  <depends>com.intellij.modules.platform</depends>
-  <depends>com.intellij.java</depends>
+    <!-- Product and plugin compatibility requirements -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <applicationService
-        serviceImplementation="com.rahulrav.baseline.services.ApplicationService"/>
-    <projectService
-        serviceImplementation="com.rahulrav.baseline.services.ProjectService"/>
-    <!-- Define a file type. -->
-    <fileType name="baseline"
-        implementationClass="com.rahulrav.baseline.FileType"
-        extensions="txt"
-        language="baseline"
-        fieldName="instance"/>
-    <!-- Register parser definition -->
-    <lang.parserDefinition language="baseline"
-        implementationClass="com.rahulrav.baseline.parser.ParserDef"/>
-
-  </extensions>
-  <applicationListeners>
-    <listener class="com.rahulrav.baseline.listeners.Listener"
-        topic="com.intellij.openapi.project.ProjectManagerListener"/>
-  </applicationListeners>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService
+                serviceImplementation="com.rahulrav.baseline.services.ApplicationService"/>
+        <projectService
+                serviceImplementation="com.rahulrav.baseline.services.ProjectService"/>
+        <!-- Define a file type. -->
+        <fileType name="baseline"
+                  implementationClass="com.rahulrav.baseline.FileType"
+                  extensions="txt"
+                  language="baseline"
+                  fieldName="instance"/>
+        <!-- Register parser definition -->
+        <lang.parserDefinition
+                language="baseline"
+                implementationClass="com.rahulrav.baseline.parser.ParserDef"/>
+    </extensions>
+    <applicationListeners>
+        <listener class="com.rahulrav.baseline.listeners.Listener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
 </idea-plugin>

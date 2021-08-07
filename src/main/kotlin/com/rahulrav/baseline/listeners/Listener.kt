@@ -6,7 +6,7 @@ import com.intellij.openapi.project.ProjectManagerListener
 import com.rahulrav.baseline.services.ProjectService
 
 internal class Listener : ProjectManagerListener {
-  override fun projectOpened(project: Project) {
-    project.service<ProjectService>()
-  }
+    override fun projectOpened(project: Project) {
+        project.service<ProjectService>()
+    }
 }

@@ -14,54 +14,54 @@ import com.rahulrav.baseline.Language
 import com.rahulrav.baseline.Parser
 import com.rahulrav.baseline.lexer.LexerAdapter
 import com.rahulrav.baseline.psi.File
-import generated.GeneratedTypes
+import com.rahulrav.baseline.psi.TokenTypes
 
 /**
  * The parser definition for baseline profiles.
  */
 class ParserDef : ParserDefinition {
-  override fun createLexer(project: Project): Lexer {
-    return LexerAdapter()
-  }
+    override fun createLexer(project: Project): Lexer {
+        return LexerAdapter()
+    }
 
-  override fun createParser(project: Project): PsiParser {
-    return Parser()
-  }
+    override fun createParser(project: Project): PsiParser {
+        return Parser()
+    }
 
-  override fun getFileNodeType(): IFileElementType {
-    return FILE
-  }
+    override fun getFileNodeType(): IFileElementType {
+        return FILE
+    }
 
-  override fun getCommentTokens(): TokenSet {
-    return COMMENTS
-  }
+    override fun getCommentTokens(): TokenSet {
+        return COMMENTS
+    }
 
-  override fun getStringLiteralElements(): TokenSet {
-    return TokenSet.EMPTY
-  }
+    override fun getStringLiteralElements(): TokenSet {
+        return TokenSet.EMPTY
+    }
 
-  override fun createElement(node: ASTNode?): PsiElement {
-    return GeneratedTypes.Factory.createElement(node)
-  }
+    override fun createElement(node: ASTNode?): PsiElement {
+        return TokenTypes.Factory.createElement(node)
+    }
 
-  override fun createFile(viewProvider: FileViewProvider): PsiFile {
-    return File(viewProvider)
-  }
+    override fun createFile(viewProvider: FileViewProvider): PsiFile {
+        return File(viewProvider)
+    }
 
-  override fun getWhitespaceTokens(): TokenSet {
-    return SPACES
-  }
+    override fun getWhitespaceTokens(): TokenSet {
+        return SPACES
+    }
 
-  override fun spaceExistenceTypeBetweenTokens(
-    left: ASTNode?,
-    right: ASTNode?
-  ): ParserDefinition.SpaceRequirements {
-    return ParserDefinition.SpaceRequirements.MAY
-  }
+    override fun spaceExistenceTypeBetweenTokens(
+        left: ASTNode?,
+        right: ASTNode?
+    ): ParserDefinition.SpaceRequirements {
+        return ParserDefinition.SpaceRequirements.MAY
+    }
 
-  companion object {
-    private val SPACES = TokenSet.create(GeneratedTypes.SPACE)
-    private val COMMENTS = TokenSet.create(GeneratedTypes.COMMENT)
-    private val FILE = IFileElementType(Language.instance)
-  }
+    companion object {
+        private val SPACES = TokenSet.create(TokenTypes.SPACE)
+        private val COMMENTS = TokenSet.create(TokenTypes.COMMENT)
+        private val FILE = IFileElementType(Language.instance)
+    }
 }
