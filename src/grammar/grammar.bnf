@@ -68,7 +68,7 @@ arrow ::= HY GT
 match_all ::= WILDCARD WILDCARD
 match_no_args ::= LP RP
 match_all_args ::= LP WILDCARD WILDCARD RP
-flags ::= 'HSP' | 'SP' | 'P' | 'S'
+flags ::= 'HSP' | 'HS' | 'HP' | 'SP' | 'P' | 'S'
 
 comment_stmt ::= COMMENT_P (SPACE | ID)* NEWLINE
 empty_stmt ::= NEWLINE
