@@ -49,7 +49,7 @@ class ParserDef : ParserDefinition {
   }
 
   override fun getWhitespaceTokens(): TokenSet {
-    return TokenSet.EMPTY
+    return SPACES
   }
 
   override fun spaceExistenceTypeBetweenTokens(
@@ -60,6 +60,7 @@ class ParserDef : ParserDefinition {
   }
 
   companion object {
+    private val SPACES = TokenSet.create(GeneratedTypes.SPACE)
     private val COMMENTS = TokenSet.create(GeneratedTypes.COMMENT)
     private val FILE = IFileElementType(Language.instance)
   }
