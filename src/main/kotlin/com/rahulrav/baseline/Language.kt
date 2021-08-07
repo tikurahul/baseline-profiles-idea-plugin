@@ -15,7 +15,7 @@ class Language : com.intellij.lang.Language("baseline") {
   }
 }
 
-class BaselineFileType : LanguageFileType(Language.instance) {
+class FileType : LanguageFileType(Language.instance) {
   override fun getName(): String {
     return "baseline"
   }
@@ -35,6 +35,6 @@ class BaselineFileType : LanguageFileType(Language.instance) {
   companion object {
     // The language
     @JvmField
-    val instance = BaselineFileType()
+    val instance = FileType()
   }
 }

@@ -10,13 +10,13 @@ import static generated.GeneratedTypes.*;
 %%
 
 %{
-  public _GrammarLexer() {
+  public Lexer() {
     this((java.io.Reader)null);
   }
 %}
 
 %public
-%class _GrammarLexer
+%class Lexer
 %implements FlexLexer
 %function advance
 %type IElementType
@@ -25,25 +25,34 @@ import static generated.GeneratedTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
-FLAGS=HS?P?|SP?|P
-ID=[a-zA-Z_$0-9?]
-PRIMITIVES=[ZVBSILFD]
-COMMENT=#(.*)?
-NEWLINE=\r?\n
+SLASH=[/]
+SEMI=";"
+AP=[\[]
+WILDCARD=[*]
+HY=[\-]
+GT=[>]
+LP=[(]
+RP=[)]
+COMMENT=[#]
 SPACE=[\s]
+ID=[a-zA-Z_$0-9?]
+NEWLINE=\r?\n
 
 %%
 <YYINITIAL> {
-  {WHITE_SPACE}      { return WHITE_SPACE; }
-
-
-  {FLAGS}            { return FLAGS; }
-  {ID}               { return ID; }
-  {PRIMITIVES}       { return PRIMITIVES; }
+  {SLASH}            { return SLASH; }
+  {SEMI}             { return SEMI; }
+  {AP}               { return AP; }
+  {WILDCARD}         { return WILDCARD; }
+  {HY}               { return HY; }
+  {GT}               { return GT; }
+  {LP}               { return LP; }
+  {RP}               { return RP; }
   {COMMENT}          { return COMMENT; }
-  {NEWLINE}          { return NEWLINE; }
+  {ID}               { return ID; }
   {SPACE}            { return SPACE; }
-
+  {NEWLINE}          { return NEWLINE; }
+  {WHITE_SPACE}      { return WHITE_SPACE; }
 }
 
 [^] { return BAD_CHARACTER; }

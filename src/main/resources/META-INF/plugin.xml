@@ -12,13 +12,17 @@
         serviceImplementation="com.rahulrav.baseline.services.ApplicationService"/>
     <projectService
         serviceImplementation="com.rahulrav.baseline.services.ProjectService"/>
+    <!-- Define a file type. -->
     <fileType name="baseline"
-        implementationClass="com.rahulrav.baseline.BaselineFileType"
+        implementationClass="com.rahulrav.baseline.FileType"
         extensions="txt"
         language="baseline"
         fieldName="instance"/>
-  </extensions>
+    <!-- Register parser definition -->
+    <lang.parserDefinition language="baseline"
+        implementationClass="com.rahulrav.baseline.parser.ParserDef"/>
 
+  </extensions>
   <applicationListeners>
     <listener class="com.rahulrav.baseline.listeners.Listener"
         topic="com.intellij.openapi.project.ProjectManagerListener"/>

@@ -9,46 +9,63 @@
 
   extends('.*stmt$')=statement
   tokens = [
-    FLAGS = 'regexp:HS?P?|SP?|P'
+    SLASH = 'regexp:[/]'
+    SEMI = 'regexp:[;]'
+    AP = 'regexp:[\[]'
+    WILDCARD = 'regexp:[*]'
+    HY = 'regexp:[\-]'
+    GT = 'regexp:[>]'
+    LP = 'regexp:[(]'
+    RP = 'regexp:[)]'
+    COMMENT = 'regexp:[#]'
+    SPACE = ' '
     ID = 'regexp:[a-zA-Z_$0-9?]'
-    PRIMITIVES = 'regexp:[ZVBSILFD]'
-    COMMENT = 'regexp:#(.*)?'
     NEWLINE = 'regexp:\r?\n'
-    SPACE = 'regexp:[\s]'
   ]
 }
 
 root ::= statement*
 
 statement ::=
-      empty_stmt
-    | class_stmt
+    empty_stmt
+    |class_stmt
     | method_stmt
     | comment_stmt
 
 class_stmt ::= class_rule NEWLINE
 class_rule ::= [
-    'L' path_component ';' |
-    'L' path_component '/' '**' |
-    'L' path_component '/' '*'
+    basic_class_rule |
+    class_prefix path_component SLASH match_all |
+    class_prefix path_component SLASH WILDCARD
 ]
+
+basic_class_rule ::= class_prefix path_component SEMI
 path_component ::= component ('/'component)*
 component ::= ID+
+class_prefix ::= 'L'
 
-array_rule ::= '[' [PRIMITIVES | class_rule]
-argument_rule ::= '()' | '(**)' |'(' type (',' type)* ')'
-type ::= PRIMITIVES | array_rule | class_rule
+array_rule ::= AP [ primitives | class_rule ]
+argument_rule ::= match_no_args | match_all_args | LP type (',' type)* RP
+// Types should only contain the basic class rule.
+// Otherwise it gets very ambiguous
+type ::= array_rule | basic_class_rule | primitives
+primitives ::= 'Z' | 'V' | 'B' | 'S' | 'I'| 'L'| 'F'| 'D'
 
-method_stmt ::= FLAGS method_class_rule method_name argument_rule return_type? NEWLINE
+method_stmt ::= flags method_class_rule method_name argument_rule return_type? NEWLINE
 method_class_rule ::= [
-    'L' path_component ';' '->' |
-    'L' path_component '/' '**' '->' |
-    'L' path_component '/' '*' '->'
+    class_prefix path_component SEMI arrow |
+    class_prefix path_component SLASH match_all arrow |
+    class_prefix path_component SLASH WILDCARD arrow
 ]
 method_name ::= match_all | method_component
-method_component ::= [ID+ '*' ID+ | ID+ '*']
+method_component ::= [ID+ WILDCARD ID+ | ID+ WILDCARD]
 return_type ::= match_all | type
-match_all ::= '**'
 
-comment_stmt ::= COMMENT NEWLINE
-empty_stmt ::= SPACE* NEWLINE
+arrow ::= HY GT
+match_all ::= WILDCARD WILDCARD
+match_no_args ::= LP RP
+match_all_args ::= LP WILDCARD WILDCARD RP
+flags ::= 'HSP' | 'SP' | 'P' | 'S'
+
+comment_stmt ::= COMMENT (SPACE | ID)+ NEWLINE
+empty_stmt ::= NEWLINE
