@@ -283,7 +283,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'HSP' | 'HS' | 'HP' | 'SP' | 'P' | 'S'
+  // 'HSP' | 'HS' | 'HP' | 'SP' | 'P' | 'S' | 'H'
   public static boolean flags(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "flags")) return false;
     boolean r;
@@ -294,6 +294,7 @@ public class Parser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, "SP");
     if (!r) r = consumeToken(b, "P");
     if (!r) r = consumeToken(b, "S");
+    if (!r) r = consumeToken(b, "H");
     exit_section_(b, l, m, r, false, null);
     return r;
   }

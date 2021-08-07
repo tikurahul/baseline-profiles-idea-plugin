@@ -44,3 +44,4 @@ NEWLINE=\r\n|\r|\n
 }
 
 [^] { return BAD_CHARACTER; }
+
