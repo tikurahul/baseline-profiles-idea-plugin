@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.rahulrav.baseline-profiles</id>
-    <name>Baseline-Profiles-Idea</name>
+    <name>Android Baseline Profiles</name>
     <vendor>rahulrav</vendor>
 
     <!-- Product and plugin compatibility requirements -->
@@ -28,6 +28,9 @@
         <annotator
                 language="baseline"
                 implementationClass="com.rahulrav.baseline.annotator.Annotator"/>
+        <completion.contributor
+                language="baseline"
+                implementationClass="com.rahulrav.baseline.completion.Contributor"/>
     </extensions>
     <applicationListeners>
         <listener class="com.rahulrav.baseline.listeners.Listener"
