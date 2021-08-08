@@ -25,24 +25,26 @@ import static com.rahulrav.baseline.psi.TokenTypes.*;
 COMMENT_P=[#]
 ID=[a-zA-Z_$0-9?]
 NEWLINE=\r\n|\r|\n
+ANY=.
 
 %%
 <YYINITIAL> {
-
   "/"                { return SLASH; }
   ";"                { return SEMI; }
   "["                { return AP; }
   "*"                { return WILDCARD; }
   "-"                { return HY; }
+  "<"                { return LT; }
   ">"                { return GT; }
   "("                { return LP; }
   ")"                { return RP; }
   " "                { return SPACE; }
+  ","                { return COMMA; }
 
   {COMMENT_P}        { return COMMENT_P; }
   {ID}               { return ID; }
   {NEWLINE}          { return NEWLINE; }
-
+  {ANY}              { return ANY; }
 }
 
 [^] { return BAD_CHARACTER; }

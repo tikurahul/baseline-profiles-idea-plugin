@@ -38,25 +38,26 @@ public class Lexer implements FlexLexer {
 
   /** 
    * Translates characters to character classes
-   * Chosen bits are [8, 6, 7]
-   * Total runtime size is 1040 bytes
+   * Chosen bits are [9, 6, 6]
+   * Total runtime size is 1568 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>13]|((ch>>7)&0x3f)]|(ch&0x7f)];
+    return ZZ_CMAP_A[(ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>12]|((ch>>6)&0x3f)]<<6)|(ch&0x3f)];
   }
 
-  /* The ZZ_CMAP_Z table has 136 entries */
+  /* The ZZ_CMAP_Z table has 272 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\207\100");
+    "\1\0\1\100\1\200\u010d\100");
 
-  /* The ZZ_CMAP_Y table has 128 entries */
+  /* The ZZ_CMAP_Y table has 192 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\177\200");
+    "\1\0\1\1\1\2\175\3\1\4\77\3");
 
-  /* The ZZ_CMAP_A table has 256 entries */
+  /* The ZZ_CMAP_A table has 320 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\12\0\1\4\2\0\1\3\22\0\1\15\2\0\1\1\1\2\3\0\1\13\1\14\1\10\2\0\1\11\1\0\1"+
-    "\5\12\2\1\0\1\6\2\0\1\12\1\2\1\0\32\2\1\7\3\0\1\2\1\0\32\2\205\0");
+    "\12\0\1\4\2\5\1\3\22\0\1\17\2\0\1\1\1\2\3\0\1\15\1\16\1\11\1\0\1\20\1\12\1"+
+    "\0\1\6\12\2\1\0\1\7\1\13\1\0\1\14\1\2\1\0\32\2\1\10\3\0\1\2\1\0\32\2\12\0"+
+    "\1\5\242\0\2\5\26\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -65,10 +66,11 @@ public class Lexer implements FlexLexer {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\2\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\12\1\13\1\14\1\15";
+    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
+    "\1\20";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[15];
+    int [] result = new int[18];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -93,11 +95,12 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\16\0\16\0\16\0\34\0\16\0\16\0\16"+
-    "\0\16\0\16\0\16\0\16\0\16\0\16\0\16";
+    "\0\0\0\21\0\21\0\21\0\42\0\21\0\21\0\21"+
+    "\0\21\0\21\0\21\0\21\0\21\0\21\0\21\0\21"+
+    "\0\21\0\21";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[15];
+    int [] result = new int[18];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -121,11 +124,11 @@ public class Lexer implements FlexLexer {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
-    "\1\12\1\13\1\14\1\15\1\16\1\17\22\0\1\6"+
-    "\11\0";
+    "\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21"+
+    "\1\22\25\0\1\6\14\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[42];
+    int [] result = new int[51];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -163,10 +166,10 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\3\11\1\1\12\11";
+    "\1\0\3\11\1\1\15\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[15];
+    int [] result = new int[18];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -472,70 +475,85 @@ public class Lexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return BAD_CHARACTER;
+            { return ANY;
             } 
             // fall through
-          case 14: break;
+          case 17: break;
           case 2: 
             { return COMMENT_P;
             } 
             // fall through
-          case 15: break;
+          case 18: break;
           case 3: 
             { return ID;
             } 
             // fall through
-          case 16: break;
+          case 19: break;
           case 4: 
             { return NEWLINE;
             } 
             // fall through
-          case 17: break;
-          case 5: 
-            { return SLASH;
-            } 
-            // fall through
-          case 18: break;
-          case 6: 
-            { return SEMI;
-            } 
-            // fall through
-          case 19: break;
-          case 7: 
-            { return AP;
-            } 
-            // fall through
           case 20: break;
-          case 8: 
-            { return WILDCARD;
+          case 5: 
+            { return BAD_CHARACTER;
             } 
             // fall through
           case 21: break;
-          case 9: 
-            { return HY;
+          case 6: 
+            { return SLASH;
             } 
             // fall through
           case 22: break;
-          case 10: 
-            { return GT;
+          case 7: 
+            { return SEMI;
             } 
             // fall through
           case 23: break;
-          case 11: 
-            { return LP;
+          case 8: 
+            { return AP;
             } 
             // fall through
           case 24: break;
-          case 12: 
-            { return RP;
+          case 9: 
+            { return WILDCARD;
             } 
             // fall through
           case 25: break;
-          case 13: 
-            { return SPACE;
+          case 10: 
+            { return HY;
             } 
             // fall through
           case 26: break;
+          case 11: 
+            { return LT;
+            } 
+            // fall through
+          case 27: break;
+          case 12: 
+            { return GT;
+            } 
+            // fall through
+          case 28: break;
+          case 13: 
+            { return LP;
+            } 
+            // fall through
+          case 29: break;
+          case 14: 
+            { return RP;
+            } 
+            // fall through
+          case 30: break;
+          case 15: 
+            { return SPACE;
+            } 
+            // fall through
+          case 31: break;
+          case 16: 
+            { return COMMA;
+            } 
+            // fall through
+          case 32: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

@@ -32,12 +32,15 @@ public interface TokenTypes {
   IElementType STATEMENT = new Element("STATEMENT");
   IElementType TYPE = new Element("TYPE");
 
+  IElementType ANY = new Token("ANY");
   IElementType AP = new Token("[");
+  IElementType COMMA = new Token(",");
   IElementType COMMENT_P = new Token("COMMENT_P");
   IElementType GT = new Token(">");
   IElementType HY = new Token("-");
   IElementType ID = new Token("ID");
   IElementType LP = new Token("(");
+  IElementType LT = new Token("<");
   IElementType NEWLINE = new Token("NEWLINE");
   IElementType RP = new Token(")");
   IElementType SEMI = new Token(";");

@@ -22,6 +22,9 @@
         <lang.parserDefinition
                 language="baseline"
                 implementationClass="com.rahulrav.baseline.parser.ParserDef"/>
+        <lang.syntaxHighlighterFactory
+                language="baseline"
+                implementationClass="com.rahulrav.baseline.highlighter.HighlighterFactory"/>
         <annotator
                 language="baseline"
                 implementationClass="com.rahulrav.baseline.annotator.Annotator"/>

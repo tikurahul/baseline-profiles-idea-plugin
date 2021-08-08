@@ -21,7 +21,7 @@ class FileType : LanguageFileType(Language.instance) {
     }
 
     override fun getDescription(): String {
-        return "Android baseline profiles"
+        return "Android Baseline profiles"
     }
 
     override fun getDefaultExtension(): String {

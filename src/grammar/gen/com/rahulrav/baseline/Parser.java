@@ -41,7 +41,7 @@ public class Parser implements PsiParser, LightPsiParser {
   };
 
   /* ********************************************************** */
-  // match_no_args | match_all_args | LP type (',' type)* RP
+  // match_no_args | match_all_args | LP type (COMMA type)* RP
   public static boolean argument_rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_rule")) return false;
     if (!nextTokenIs(b, LP)) return false;
@@ -54,7 +54,7 @@ public class Parser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LP type (',' type)* RP
+  // LP type (COMMA type)* RP
   private static boolean argument_rule_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_rule_2")) return false;
     boolean r;
@@ -67,7 +67,7 @@ public class Parser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (',' type)*
+  // (COMMA type)*
   private static boolean argument_rule_2_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_rule_2_2")) return false;
     while (true) {
@@ -78,12 +78,12 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ',' type
+  // COMMA type
   private static boolean argument_rule_2_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_rule_2_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, ",");
+    r = consumeToken(b, COMMA);
     r = r && type(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -220,7 +220,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT_P (SPACE | ID)* NEWLINE
+  // COMMENT_P (SPACE | ID | ANY)* NEWLINE
   public static boolean comment_stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment_stmt")) return false;
     if (!nextTokenIs(b, COMMENT_P)) return false;
@@ -233,7 +233,7 @@ public class Parser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (SPACE | ID)*
+  // (SPACE | ID | ANY)*
   private static boolean comment_stmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment_stmt_1")) return false;
     while (true) {
@@ -244,12 +244,13 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // SPACE | ID
+  // SPACE | ID | ANY
   private static boolean comment_stmt_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment_stmt_1_0")) return false;
     boolean r;
     r = consumeToken(b, SPACE);
     if (!r) r = consumeToken(b, ID);
+    if (!r) r = consumeToken(b, ANY);
     return r;
   }
 
@@ -337,6 +338,7 @@ public class Parser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // [
+  //     class_prefix path_component match_all arrow |
   //     class_prefix path_component SEMI arrow |
   //     class_prefix path_component SLASH match_all arrow |
   //     class_prefix path_component SLASH WILDCARD arrow
@@ -349,7 +351,8 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // class_prefix path_component SEMI arrow |
+  // class_prefix path_component match_all arrow |
+  //     class_prefix path_component SEMI arrow |
   //     class_prefix path_component SLASH match_all arrow |
   //     class_prefix path_component SLASH WILDCARD arrow
   private static boolean method_class_rule_0(PsiBuilder b, int l) {
@@ -359,13 +362,27 @@ public class Parser implements PsiParser, LightPsiParser {
     r = method_class_rule_0_0(b, l + 1);
     if (!r) r = method_class_rule_0_1(b, l + 1);
     if (!r) r = method_class_rule_0_2(b, l + 1);
+    if (!r) r = method_class_rule_0_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // class_prefix path_component match_all arrow
+  private static boolean method_class_rule_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_class_rule_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = class_prefix(b, l + 1);
+    r = r && path_component(b, l + 1);
+    r = r && match_all(b, l + 1);
+    r = r && arrow(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // class_prefix path_component SEMI arrow
-  private static boolean method_class_rule_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "method_class_rule_0_0")) return false;
+  private static boolean method_class_rule_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_class_rule_0_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = class_prefix(b, l + 1);
@@ -377,8 +394,8 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   // class_prefix path_component SLASH match_all arrow
-  private static boolean method_class_rule_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "method_class_rule_0_1")) return false;
+  private static boolean method_class_rule_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_class_rule_0_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = class_prefix(b, l + 1);
@@ -391,8 +408,8 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   // class_prefix path_component SLASH WILDCARD arrow
-  private static boolean method_class_rule_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "method_class_rule_0_2")) return false;
+  private static boolean method_class_rule_0_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_class_rule_0_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = class_prefix(b, l + 1);
@@ -404,7 +421,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // [ID+ WILDCARD ID+ | ID+ WILDCARD]
+  // [ID+ WILDCARD ID+ | ID+ WILDCARD | LT component GT | component]
   public static boolean method_component(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "method_component")) return false;
     Marker m = enter_section_(b, l, _NONE_, METHOD_COMPONENT, "<method component>");
@@ -413,13 +430,15 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ID+ WILDCARD ID+ | ID+ WILDCARD
+  // ID+ WILDCARD ID+ | ID+ WILDCARD | LT component GT | component
   private static boolean method_component_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "method_component_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = method_component_0_0(b, l + 1);
     if (!r) r = method_component_0_1(b, l + 1);
+    if (!r) r = method_component_0_2(b, l + 1);
+    if (!r) r = component(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -492,6 +511,18 @@ public class Parser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // LT component GT
+  private static boolean method_component_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_component_0_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LT);
+    r = r && component(b, l + 1);
+    r = r && consumeToken(b, GT);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   /* ********************************************************** */
   // match_all | method_component
   public static boolean method_name(PsiBuilder b, int l) {
@@ -528,7 +559,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // component ('/'component)*
+  // component (SLASH component)*
   public static boolean path_component(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "path_component")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -540,7 +571,7 @@ public class Parser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ('/'component)*
+  // (SLASH component)*
   private static boolean path_component_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "path_component_1")) return false;
     while (true) {
@@ -551,7 +582,7 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // '/'component
+  // SLASH component
   private static boolean path_component_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "path_component_1_0")) return false;
     boolean r;

@@ -16,13 +16,16 @@
     AP = '['
     WILDCARD = '*'
     HY = '-'
+    LT = '<'
     GT = '>'
     LP = '('
     RP = ')'
     SPACE = ' '
+    COMMA = ','
     COMMENT_P = 'regexp:[#]'
     ID = 'regexp:[a-zA-Z_$0-9?]'
     NEWLINE = 'regexp:\r\n|\r|\n'
+    ANY = 'regexp:.'
   ]
 }
 
@@ -42,12 +45,12 @@ class_rule ::= [
 ]
 
 basic_class_rule ::= class_prefix path_component SEMI
-path_component ::= component ('/'component)*
+path_component ::= component (SLASH component)*
 component ::= ID+
 class_prefix ::= 'L'
 
 array_rule ::= AP [ primitives | class_rule ]
-argument_rule ::= match_no_args | match_all_args | LP type (',' type)* RP
+argument_rule ::= match_no_args | match_all_args | LP type (COMMA type)* RP
 // Types should only contain the basic class rule.
 // Otherwise it gets very ambiguous
 type ::= array_rule | basic_class_rule | primitives
@@ -55,12 +58,13 @@ primitives ::= 'Z' | 'V' | 'B' | 'S' | 'I'| 'L'| 'F'| 'D'
 
 method_stmt ::= flags method_class_rule method_name argument_rule return_type? NEWLINE
 method_class_rule ::= [
+    class_prefix path_component match_all arrow |
     class_prefix path_component SEMI arrow |
     class_prefix path_component SLASH match_all arrow |
     class_prefix path_component SLASH WILDCARD arrow
 ]
 method_name ::= match_all | method_component
-method_component ::= [ID+ WILDCARD ID+ | ID+ WILDCARD]
+method_component ::= [ID+ WILDCARD ID+ | ID+ WILDCARD | LT component GT | component]
 return_type ::= match_all | type
 
 arrow ::= HY GT
@@ -69,5 +73,5 @@ match_no_args ::= LP RP
 match_all_args ::= LP WILDCARD WILDCARD RP
 flags ::= 'HSP' | 'HS' | 'HP' | 'SP' | 'P' | 'S' | 'H'
 
-comment_stmt ::= COMMENT_P (SPACE | ID)* NEWLINE
+comment_stmt ::= COMMENT_P (SPACE | ID | ANY)* NEWLINE
 empty_stmt ::= NEWLINE

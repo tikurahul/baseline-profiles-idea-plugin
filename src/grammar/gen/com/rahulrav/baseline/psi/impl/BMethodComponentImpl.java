@@ -27,4 +27,10 @@ public class BMethodComponentImpl extends ASTWrapperPsiElement implements BMetho
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public BComponent getComponent() {
+    return findChildByClass(BComponent.class);
+  }
+
 }
