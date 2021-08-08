@@ -1,4 +1,4 @@
-package com.rahulrav.baseline.services
+package com.rahulrav.baseline.completion
 
 import com.intellij.psi.PsiClass
 import com.intellij.psi.search.searches.AllClassesSearch

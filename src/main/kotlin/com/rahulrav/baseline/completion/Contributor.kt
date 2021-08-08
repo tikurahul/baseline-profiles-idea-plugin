@@ -6,7 +6,6 @@ import com.intellij.openapi.module.ModuleUtil
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.util.ProcessingContext
 import com.rahulrav.baseline.psi.TokenTypes
-import com.rahulrav.baseline.services.Completion
 
 class Contributor : CompletionContributor() {
     init {
