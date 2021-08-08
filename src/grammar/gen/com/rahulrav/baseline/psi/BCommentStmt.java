@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface BCommentStmt extends BStatement {
 
   @NotNull
+  List<BAnyChar> getAnyCharList();
+
+  @NotNull
   PsiElement getCommentP();
 
   @NotNull

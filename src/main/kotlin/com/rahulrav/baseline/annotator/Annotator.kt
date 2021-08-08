@@ -86,7 +86,7 @@ class Annotator : com.intellij.lang.annotation.Annotator {
 
     private fun BArrayRule.annotation(holder: AnnotationHolder) {
         primitives?.annotation(holder)
-        classRule?.annotation(holder)
+        basicClassRule?.annotation(holder)
     }
 
     private fun PsiElement.annotation(

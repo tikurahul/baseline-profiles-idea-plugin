@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.rahulrav.baseline.psi.TokenTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.rahulrav.baseline.psi.*;
 
-public class BCommentStmtImpl extends BStatementImpl implements BCommentStmt {
+public class BAnyCharImpl extends ASTWrapperPsiElement implements BAnyChar {
 
-  public BCommentStmtImpl(@NotNull ASTNode node) {
+  public BAnyCharImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull BVisitor visitor) {
-    visitor.visitCommentStmt(this);
+    visitor.visitAnyChar(this);
   }
 
   @Override
@@ -28,21 +28,15 @@ public class BCommentStmtImpl extends BStatementImpl implements BCommentStmt {
   }
 
   @Override
-  @NotNull
-  public List<BAnyChar> getAnyCharList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, BAnyChar.class);
+  @Nullable
+  public PsiElement getAny() {
+    return findChildByType(ANY);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public PsiElement getCommentP() {
-    return findNotNullChildByType(COMMENT_P);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getNewline() {
-    return findNotNullChildByType(NEWLINE);
+    return findChildByType(COMMENT_P);
   }
 
 }

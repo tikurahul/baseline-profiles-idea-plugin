@@ -22,8 +22,11 @@ import static com.rahulrav.baseline.psi.TokenTypes.*;
 %type IElementType
 %unicode
 
+EOL=\R
+WHITE_SPACE=\s+
+
 COMMENT_P=[#]
-ID=[a-zA-Z_$0-9?]
+ID=[a-zA-Z_$0-9?-]
 NEWLINE=\r\n|\r|\n
 ANY=.
 
@@ -33,13 +36,12 @@ ANY=.
   ";"                { return SEMI; }
   "["                { return AP; }
   "*"                { return WILDCARD; }
-  "-"                { return HY; }
   "<"                { return LT; }
   ">"                { return GT; }
   "("                { return LP; }
   ")"                { return RP; }
   " "                { return SPACE; }
-  ","                { return COMMA; }
+  "GP"               { return GP; }
 
   {COMMENT_P}        { return COMMENT_P; }
   {ID}               { return ID; }

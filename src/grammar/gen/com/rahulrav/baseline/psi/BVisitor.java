@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class BVisitor extends PsiElementVisitor {
 
+  public void visitAnyChar(@NotNull BAnyChar o) {
+    visitPsiElement(o);
+  }
+
   public void visitArgumentRule(@NotNull BArgumentRule o) {
     visitPsiElement(o);
   }

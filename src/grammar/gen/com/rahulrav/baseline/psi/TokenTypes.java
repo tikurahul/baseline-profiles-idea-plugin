@@ -8,6 +8,7 @@ import com.rahulrav.baseline.psi.impl.*;
 
 public interface TokenTypes {
 
+  IElementType ANY_CHAR = new Element("ANY_CHAR");
   IElementType ARGUMENT_RULE = new Element("ARGUMENT_RULE");
   IElementType ARRAY_RULE = new Element("ARRAY_RULE");
   IElementType ARROW = new Element("ARROW");
@@ -34,10 +35,9 @@ public interface TokenTypes {
 
   IElementType ANY = new Token("ANY");
   IElementType AP = new Token("[");
-  IElementType COMMA = new Token(",");
   IElementType COMMENT_P = new Token("COMMENT_P");
+  IElementType GP = new Token("GP");
   IElementType GT = new Token(">");
-  IElementType HY = new Token("-");
   IElementType ID = new Token("ID");
   IElementType LP = new Token("(");
   IElementType LT = new Token("<");
@@ -51,7 +51,10 @@ public interface TokenTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ARGUMENT_RULE) {
+      if (type == ANY_CHAR) {
+        return new BAnyCharImpl(node);
+      }
+      else if (type == ARGUMENT_RULE) {
         return new BArgumentRuleImpl(node);
       }
       else if (type == ARRAY_RULE) {

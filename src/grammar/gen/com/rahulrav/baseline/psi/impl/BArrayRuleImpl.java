@@ -29,8 +29,8 @@ public class BArrayRuleImpl extends ASTWrapperPsiElement implements BArrayRule {
 
   @Override
   @Nullable
-  public BClassRule getClassRule() {
-    return findChildByClass(BClassRule.class);
+  public BBasicClassRule getBasicClassRule() {
+    return findChildByClass(BBasicClassRule.class);
   }
 
   @Override

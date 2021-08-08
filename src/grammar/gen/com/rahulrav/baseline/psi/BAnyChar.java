@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface BArrayRule extends PsiElement {
+public interface BAnyChar extends PsiElement {
 
   @Nullable
-  BBasicClassRule getBasicClassRule();
+  PsiElement getAny();
 
   @Nullable
-  BPrimitives getPrimitives();
+  PsiElement getCommentP();
 
 }

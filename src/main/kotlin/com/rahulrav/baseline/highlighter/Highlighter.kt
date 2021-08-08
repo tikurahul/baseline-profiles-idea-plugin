@@ -15,11 +15,11 @@ class Highlighter : SyntaxHighlighterBase() {
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
         return when (tokenType) {
-            TokenTypes.WILDCARD, TokenTypes.LT, TokenTypes.GT -> arrayOf(KEYWORD)
+            TokenTypes.WILDCARD -> arrayOf(KEYWORD)
+            TokenTypes.LT, TokenTypes.GT -> arrayOf(PREDEFINED_SYMBOL)
             TokenTypes.LP, TokenTypes.RP -> arrayOf(BRACES)
             TokenTypes.SEMI -> arrayOf(SEMICOLON)
             TokenTypes.AP -> arrayOf(BRACKETS)
-            TokenTypes.COMMA -> arrayOf(COMMA)
             else -> EMPTY
         }
     }

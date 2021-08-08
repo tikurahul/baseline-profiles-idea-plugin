@@ -15,19 +15,19 @@
     SEMI = ';'
     AP = '['
     WILDCARD = '*'
-    HY = '-'
     LT = '<'
     GT = '>'
     LP = '('
     RP = ')'
     SPACE = ' '
-    COMMA = ','
     COMMENT_P = 'regexp:[#]'
-    ID = 'regexp:[a-zA-Z_$0-9?]'
+    ID = 'regexp:[a-zA-Z_$0-9?-]'
     NEWLINE = 'regexp:\r\n|\r|\n'
     ANY = 'regexp:.'
   ]
 }
+
+// https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html
 
 root ::= statement*
 
@@ -40,8 +40,8 @@ statement ::=
 class_stmt ::= class_rule NEWLINE
 class_rule ::= [
     basic_class_rule |
-    class_prefix path_component SLASH match_all |
-    class_prefix path_component SLASH WILDCARD
+    class_prefix path_component SLASH match_all SEMI |
+    class_prefix path_component SLASH WILDCARD SEMI
 ]
 
 basic_class_rule ::= class_prefix path_component SEMI
@@ -49,12 +49,12 @@ path_component ::= component (SLASH component)*
 component ::= ID+
 class_prefix ::= 'L'
 
-array_rule ::= AP [ primitives | class_rule ]
-argument_rule ::= match_no_args | match_all_args | LP type (COMMA type)* RP
+array_rule ::= AP [basic_class_rule | primitives]
+argument_rule ::= match_no_args | match_all_args | LP type (type)* RP
 // Types should only contain the basic class rule.
 // Otherwise it gets very ambiguous
 type ::= array_rule | basic_class_rule | primitives
-primitives ::= 'Z' | 'V' | 'B' | 'S' | 'I'| 'L'| 'F'| 'D'
+primitives ::= 'Z' | 'V' | 'B' | 'S' | 'I'| 'J'| 'F'| 'D' | 'C'
 
 method_stmt ::= flags method_class_rule method_name argument_rule return_type? NEWLINE
 method_class_rule ::= [
@@ -67,11 +67,12 @@ method_name ::= match_all | method_component
 method_component ::= [ID+ WILDCARD ID+ | ID+ WILDCARD | LT component GT | component]
 return_type ::= match_all | type
 
-arrow ::= HY GT
+arrow ::= '-' GT
 match_all ::= WILDCARD WILDCARD
 match_no_args ::= LP RP
 match_all_args ::= LP WILDCARD WILDCARD RP
 flags ::= 'HSP' | 'HS' | 'HP' | 'SP' | 'P' | 'S' | 'H'
 
-comment_stmt ::= COMMENT_P (SPACE | ID | ANY)* NEWLINE
+comment_stmt ::= COMMENT_P (SPACE | ID | any_char)* NEWLINE
+any_char ::= ANY | SLASH | SEMI | WILDCARD | AP | LT | GT | LP | GP | COMMENT_P
 empty_stmt ::= NEWLINE
