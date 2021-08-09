@@ -13,3 +13,8 @@
 
 ![Class Completions](assets/completions.gif)
 
+# Plugin Description
+
+<!-- Plugin description -->
+An IntelliJ plugin to help annotate and author Android Baseline Profile rules.
+<!-- Plugin description end -->
