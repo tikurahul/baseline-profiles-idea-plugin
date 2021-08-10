@@ -16,5 +16,5 @@
 # Plugin Description
 
 <!-- Plugin description -->
-An IntelliJ plugin to help annotate and author Android Baseline Profile rules.
+An IntelliJ based plugin to help annotate and author Android Baseline Profile rules.
 <!-- Plugin description end -->
