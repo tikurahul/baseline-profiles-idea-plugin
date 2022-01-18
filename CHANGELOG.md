@@ -1,7 +1,14 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# baseline-profiles-idea-plugin Changelog
+# Changelog
 
+<!-- Necessary for GitHub changelog flows. -->
 ## [Unreleased]
-### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+
+## [0.1.2]
+* Intellij 2021.3.x support.
+
+## [0.1.1]
+* Support `baseline-prof.txt` highlighting.
+* Support module aware class descriptor auto completion.
+* Add Lexer, Parser for the ART Human readable profile format. Add support for PSI trees.
