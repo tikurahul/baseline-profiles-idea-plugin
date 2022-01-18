@@ -28,6 +28,7 @@ _hot code_ or code commonly in an app.
 
 * Syntax highlighting and validation for `baseline-prof.txt` files.
 * Module aware completion for Kotlin and Java Files for Class descriptors.
+<!-- Plugin description end -->
 
 ### Syntax Highlight `baseline-prof.txt` files.
 
@@ -36,4 +37,3 @@ _hot code_ or code commonly in an app.
 ### Class Descriptor completions
 
 ![Class Completions](assets/completions.gif)
-<!-- Plugin description end -->
