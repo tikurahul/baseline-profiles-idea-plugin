@@ -25,8 +25,8 @@ import static com.rahulrav.baseline.psi.TokenTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
-COMMENT_P=[#]
-ID=[a-zA-Z_$0-9?-]
+COMMENT_P=#
+ID=[a-zA-Z_$\d?-]
 NEWLINE=\r\n|\r|\n
 ANY=.
 
@@ -41,7 +41,6 @@ ANY=.
   "("                { return LP; }
   ")"                { return RP; }
   " "                { return SPACE; }
-  "GP"               { return GP; }
 
   {COMMENT_P}        { return COMMENT_P; }
   {ID}               { return ID; }

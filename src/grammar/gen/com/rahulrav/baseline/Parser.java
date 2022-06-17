@@ -41,7 +41,7 @@ public class Parser implements PsiParser, LightPsiParser {
   };
 
   /* ********************************************************** */
-  // ANY | SLASH | SEMI | WILDCARD | AP | LT | GT | LP | GP | COMMENT_P
+  // ANY | SLASH | SEMI | WILDCARD | AP | LT | GT | LP | RP | COMMENT_P
   public static boolean any_char(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "any_char")) return false;
     boolean r;
@@ -54,7 +54,7 @@ public class Parser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, LT);
     if (!r) r = consumeToken(b, GT);
     if (!r) r = consumeToken(b, LP);
-    if (!r) r = consumeToken(b, GP);
+    if (!r) r = consumeToken(b, RP);
     if (!r) r = consumeToken(b, COMMENT_P);
     exit_section_(b, l, m, r, false, null);
     return r;

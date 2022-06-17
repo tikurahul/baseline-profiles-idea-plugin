@@ -39,25 +39,31 @@ public class Lexer implements FlexLexer {
   /** 
    * Translates characters to character classes
    * Chosen bits are [9, 6, 6]
-   * Total runtime size is 1568 bytes
+   * Total runtime size is 3872 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[(ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>12]|((ch>>6)&0x3f)]<<6)|(ch&0x3f)];
+    return ZZ_CMAP_A[(ZZ_CMAP_Y[(ZZ_CMAP_Z[ch>>12]<<6)|((ch>>6)&0x3f)]<<6)|(ch&0x3f)];
   }
 
   /* The ZZ_CMAP_Z table has 272 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\100\1\200\u010d\100");
+    "\1\0\1\1\1\2\7\3\1\4\4\3\1\5\1\6\1\7\4\3\1\10\6\3\1\11\1\12\361\3");
 
-  /* The ZZ_CMAP_Y table has 192 entries */
+  /* The ZZ_CMAP_Y table has 704 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\1\2\175\3\1\4\77\3");
+    "\1\0\1\1\1\2\26\3\1\4\1\3\1\5\3\3\1\6\5\3\1\7\1\3\1\7\1\3\1\7\1\3\1\7\1\3"+
+    "\1\7\1\3\1\7\1\3\1\7\1\3\1\7\1\3\1\7\1\3\1\7\1\3\1\10\1\3\1\10\1\4\4\3\1\6"+
+    "\1\10\34\3\1\4\1\10\4\3\1\11\1\3\1\10\2\3\1\12\2\3\1\10\1\5\2\3\1\12\16\3"+
+    "\1\13\227\3\1\4\12\3\1\10\1\6\2\3\1\14\1\3\1\10\5\3\1\5\114\3\1\10\25\3\1"+
+    "\4\56\3\1\7\1\3\1\5\1\15\2\3\1\10\3\3\1\5\5\3\1\10\1\3\1\10\5\3\1\10\1\3\1"+
+    "\6\1\5\6\3\1\4\15\3\1\10\67\3\1\4\3\3\1\10\61\3\1\16\105\3\1\10\32\3");
 
-  /* The ZZ_CMAP_A table has 320 entries */
+  /* The ZZ_CMAP_A table has 960 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
     "\12\0\1\2\2\1\1\3\22\0\1\16\2\0\1\4\1\5\3\0\1\14\1\15\1\11\2\0\1\5\1\0\1\6"+
-    "\12\5\1\0\1\7\1\12\1\0\1\13\1\5\1\0\6\5\1\17\10\5\1\20\12\5\1\10\3\0\1\5\1"+
-    "\0\32\5\12\0\1\1\242\0\2\1\26\0");
+    "\12\5\1\0\1\7\1\12\1\0\1\13\1\5\1\0\32\5\1\10\3\0\1\5\1\0\32\5\12\0\1\1\232"+
+    "\0\12\5\106\0\12\5\6\0\12\5\134\0\12\5\40\0\12\5\54\0\12\5\60\0\12\5\6\0\12"+
+    "\5\116\0\2\1\46\0\12\5\26\0\12\5\74\0\12\5\16\0\62\5");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -66,11 +72,10 @@ public class Lexer implements FlexLexer {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\2\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\5"+
-    "\1\17";
+    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[18];
+    int [] result = new int[16];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -95,12 +100,11 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\21\0\21\0\21\0\42\0\21\0\21\0\21"+
-    "\0\21\0\21\0\21\0\21\0\21\0\21\0\21\0\21"+
-    "\0\63\0\21";
+    "\0\0\0\17\0\17\0\17\0\36\0\17\0\17\0\17"+
+    "\0\17\0\17\0\17\0\17\0\17\0\17\0\17\0\17";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[18];
+    int [] result = new int[16];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -124,11 +128,11 @@ public class Lexer implements FlexLexer {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
-    "\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21"+
-    "\1\7\23\0\1\4\36\0\1\22";
+    "\1\12\1\13\1\14\1\15\1\16\1\17\1\20\21\0"+
+    "\1\4\14\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[68];
+    int [] result = new int[45];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -166,10 +170,10 @@ public class Lexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\3\11\1\1\13\11\1\1\1\11";
+    "\1\0\3\11\1\1\13\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[18];
+    int [] result = new int[16];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -478,77 +482,72 @@ public class Lexer implements FlexLexer {
             { return ANY;
             } 
             // fall through
-          case 16: break;
+          case 15: break;
           case 2: 
             { return BAD_CHARACTER;
             } 
             // fall through
-          case 17: break;
+          case 16: break;
           case 3: 
             { return NEWLINE;
             } 
             // fall through
-          case 18: break;
+          case 17: break;
           case 4: 
             { return COMMENT_P;
             } 
             // fall through
-          case 19: break;
+          case 18: break;
           case 5: 
             { return ID;
             } 
             // fall through
-          case 20: break;
+          case 19: break;
           case 6: 
             { return SLASH;
             } 
             // fall through
-          case 21: break;
+          case 20: break;
           case 7: 
             { return SEMI;
             } 
             // fall through
-          case 22: break;
+          case 21: break;
           case 8: 
             { return AP;
             } 
             // fall through
-          case 23: break;
+          case 22: break;
           case 9: 
             { return WILDCARD;
             } 
             // fall through
-          case 24: break;
+          case 23: break;
           case 10: 
             { return LT;
             } 
             // fall through
-          case 25: break;
+          case 24: break;
           case 11: 
             { return GT;
             } 
             // fall through
-          case 26: break;
+          case 25: break;
           case 12: 
             { return LP;
             } 
             // fall through
-          case 27: break;
+          case 26: break;
           case 13: 
             { return RP;
             } 
             // fall through
-          case 28: break;
+          case 27: break;
           case 14: 
             { return SPACE;
             } 
             // fall through
-          case 29: break;
-          case 15: 
-            { return GP;
-            } 
-            // fall through
-          case 30: break;
+          case 28: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

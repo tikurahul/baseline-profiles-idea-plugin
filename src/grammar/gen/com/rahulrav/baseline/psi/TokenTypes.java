@@ -36,7 +36,6 @@ public interface TokenTypes {
   IElementType ANY = new Token("ANY");
   IElementType AP = new Token("[");
   IElementType COMMENT_P = new Token("COMMENT_P");
-  IElementType GP = new Token("GP");
   IElementType GT = new Token(">");
   IElementType ID = new Token("ID");
   IElementType LP = new Token("(");

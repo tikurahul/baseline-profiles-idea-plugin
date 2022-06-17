@@ -20,8 +20,8 @@
     LP = '('
     RP = ')'
     SPACE = ' '
-    COMMENT_P = 'regexp:[#]'
-    ID = 'regexp:[a-zA-Z_$0-9?-]'
+    COMMENT_P = 'regexp:#'
+    ID = 'regexp:[a-zA-Z_$\d?-]'
     NEWLINE = 'regexp:\r\n|\r|\n'
     ANY = 'regexp:.'
   ]
@@ -74,5 +74,5 @@ match_all_args ::= LP WILDCARD WILDCARD RP
 flags ::= 'HSP' | 'HS' | 'HP' | 'SP' | 'P' | 'S' | 'H'
 
 comment_stmt ::= COMMENT_P (SPACE | ID | any_char)* NEWLINE
-any_char ::= ANY | SLASH | SEMI | WILDCARD | AP | LT | GT | LP | GP | COMMENT_P
+any_char ::= ANY | SLASH | SEMI | WILDCARD | AP | LT | GT | LP | RP | COMMENT_P
 empty_stmt ::= NEWLINE
