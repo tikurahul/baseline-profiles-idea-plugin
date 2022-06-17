@@ -8,10 +8,10 @@ plugins {
   id("java")
   // Kotlin support
   id("org.jetbrains.kotlin.jvm") version "1.6.10"
-  // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-  id("org.jetbrains.intellij") version "1.0"
-  // gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
-  id("org.jetbrains.changelog") version "1.1.2"
+  // Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
+  id("org.jetbrains.intellij") version "1.4.0"
+  // Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
+  id("org.jetbrains.changelog") version "1.3.1"
 }
 
 group = properties("pluginGroup")
@@ -22,7 +22,7 @@ repositories {
   mavenCentral()
 }
 
-// Configure gradle-intellij-plugin plugin.
+// Configure Gradle IntelliJ Plugin
 // Read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
   pluginName.set(properties("pluginName"))
@@ -38,8 +38,8 @@ intellij {
 // Configure gradle-changelog-plugin plugin.
 // Read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
-  version = properties("pluginVersion")
-  groups = emptyList()
+  version.set(properties("pluginVersion"))
+  groups.set(emptyList())
 }
 
 sourceSets {
@@ -51,13 +51,19 @@ sourceSets {
 }
 
 tasks {
-  withType<JavaCompile> {
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
+  // Set the JVM compatibility versions
+  properties("javaVersion").let {
+    withType<JavaCompile> {
+      sourceCompatibility = it
+      targetCompatibility = it
+    }
+    withType<KotlinCompile> {
+      kotlinOptions.jvmTarget = it
+    }
   }
 
-  withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+  wrapper {
+    gradleVersion = properties("gradleVersion")
   }
 
   patchPluginXml {
@@ -87,6 +93,15 @@ tasks {
       properties("pluginVerifierIdeVersions").split(',').map(String::trim)
         .filter(String::isNotEmpty)
     )
+  }
+
+  // Configure UI tests plugin
+  // Read more: https://github.com/JetBrains/intellij-ui-test-robot
+  runIdeForUiTests {
+    systemProperty("robot-server.port", "8082")
+    systemProperty("ide.mac.message.dialogs.as.sheets", "false")
+    systemProperty("jb.privacy.policy.text", "<!--999.999-->")
+    systemProperty("jb.consents.confirmation.enabled", "false")
   }
 
   publishPlugin {
