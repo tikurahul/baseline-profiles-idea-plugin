@@ -32,8 +32,4 @@
                 language="baseline"
                 implementationClass="com.rahulrav.baseline.completion.Contributor"/>
     </extensions>
-    <applicationListeners>
-        <listener class="com.rahulrav.baseline.listeners.Listener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
