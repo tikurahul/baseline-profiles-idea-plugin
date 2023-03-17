@@ -109,7 +109,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // AP [basic_class_rule | primitives]
+  // AP (AP)* [basic_class_rule | primitives]
   public static boolean array_rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "array_rule")) return false;
     if (!nextTokenIs(b, AP)) return false;
@@ -117,20 +117,32 @@ public class Parser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, AP);
     r = r && array_rule_1(b, l + 1);
+    r = r && array_rule_2(b, l + 1);
     exit_section_(b, m, ARRAY_RULE, r);
     return r;
   }
 
-  // [basic_class_rule | primitives]
+  // (AP)*
   private static boolean array_rule_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "array_rule_1")) return false;
-    array_rule_1_0(b, l + 1);
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, AP)) break;
+      if (!empty_element_parsed_guard_(b, "array_rule_1", c)) break;
+    }
+    return true;
+  }
+
+  // [basic_class_rule | primitives]
+  private static boolean array_rule_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array_rule_2")) return false;
+    array_rule_2_0(b, l + 1);
     return true;
   }
 
   // basic_class_rule | primitives
-  private static boolean array_rule_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "array_rule_1_0")) return false;
+  private static boolean array_rule_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array_rule_2_0")) return false;
     boolean r;
     r = basic_class_rule(b, l + 1);
     if (!r) r = primitives(b, l + 1);

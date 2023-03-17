@@ -49,7 +49,7 @@ path_component ::= component (SLASH component)*
 component ::= ID+
 class_prefix ::= 'L'
 
-array_rule ::= AP [basic_class_rule | primitives]
+array_rule ::= AP (AP)* [basic_class_rule | primitives]
 argument_rule ::= match_no_args | match_all_args | LP type (type)* RP
 // Types should only contain the basic class rule.
 // Otherwise it gets very ambiguous
