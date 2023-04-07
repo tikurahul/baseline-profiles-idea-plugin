@@ -5,6 +5,9 @@
 <!-- Necessary for GitHub changelog flows. -->
 ## [Unreleased]
 
+## [0.1.9]
+* Fix for method rules having the `*` wildcard.
+
 ## [0.1.8]
 * Intellij 2023.1.x support.
 

@@ -1,5 +1,5 @@
 HSPLandroidx/compose/runtime/ComposerImpl;->start*Group(**)**
 HSPLandroidx/compose/runtime/ComposerImpl;->**(**)**
-HSPLandroidx/compose/runtime/*->**(**)**
+HSPLandroidx/compose/runtime/*;->**(**)**
 HSPLandroidx/compose/**->**(**)**
 Landroidx/compose/runtime/Composer;

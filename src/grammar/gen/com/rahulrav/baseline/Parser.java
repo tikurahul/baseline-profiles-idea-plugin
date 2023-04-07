@@ -373,7 +373,7 @@ public class Parser implements PsiParser, LightPsiParser {
   //     class_prefix path_component match_all arrow |
   //     class_prefix path_component SEMI arrow |
   //     class_prefix path_component SLASH match_all arrow |
-  //     class_prefix path_component SLASH WILDCARD arrow
+  //     class_prefix path_component SLASH WILDCARD SEMI arrow
   // ]
   public static boolean method_class_rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "method_class_rule")) return false;
@@ -386,7 +386,7 @@ public class Parser implements PsiParser, LightPsiParser {
   // class_prefix path_component match_all arrow |
   //     class_prefix path_component SEMI arrow |
   //     class_prefix path_component SLASH match_all arrow |
-  //     class_prefix path_component SLASH WILDCARD arrow
+  //     class_prefix path_component SLASH WILDCARD SEMI arrow
   private static boolean method_class_rule_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "method_class_rule_0")) return false;
     boolean r;
@@ -439,14 +439,14 @@ public class Parser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // class_prefix path_component SLASH WILDCARD arrow
+  // class_prefix path_component SLASH WILDCARD SEMI arrow
   private static boolean method_class_rule_0_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "method_class_rule_0_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = class_prefix(b, l + 1);
     r = r && path_component(b, l + 1);
-    r = r && consumeTokens(b, 0, SLASH, WILDCARD);
+    r = r && consumeTokens(b, 0, SLASH, WILDCARD, SEMI);
     r = r && arrow(b, l + 1);
     exit_section_(b, m, null, r);
     return r;

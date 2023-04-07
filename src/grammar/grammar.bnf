@@ -61,7 +61,7 @@ method_class_rule ::= [
     class_prefix path_component match_all arrow |
     class_prefix path_component SEMI arrow |
     class_prefix path_component SLASH match_all arrow |
-    class_prefix path_component SLASH WILDCARD arrow
+    class_prefix path_component SLASH WILDCARD SEMI arrow
 ]
 method_name ::= match_all | method_component
 method_component ::= [ID+ WILDCARD ID+ | ID+ WILDCARD | LT component GT | component]
