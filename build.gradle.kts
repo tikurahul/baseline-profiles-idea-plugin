@@ -8,15 +8,15 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.8.10"
+    alias(libs.plugins.kotlin)
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.13.2"
+    alias(libs.plugins.gradleIntelliJPlugin)
     // Gradle Changelog Plugin
-    id("org.jetbrains.changelog") version "2.0.0"
+    alias(libs.plugins.changelog)
     // Gradle Qodana Plugin
-    id("org.jetbrains.qodana") version "0.1.13"
+    alias(libs.plugins.qodana)
     // Gradle Kover Plugin
-    id("org.jetbrains.kotlinx.kover") version "0.6.1"
+    alias(libs.plugins.kover)
 }
 
 group = properties("pluginGroup")
@@ -29,7 +29,7 @@ repositories {
 
 // Set the JVM language level used to compile sources and generate files - Java 11 is required since 2020.3
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
@@ -40,7 +40,9 @@ intellij {
     // Download Sources
     downloadSources.set(properties("platformDownloadSources").map { it.toBoolean() })
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
-    plugins.set(properties("platformPlugins").map { it.split(',').map(String::trim).filter(String::isNotEmpty) })
+    plugins.set(properties("platformPlugins").map {
+        it.split(',').map(String::trim).filter(String::isNotEmpty)
+    })
 }
 
 // Configure gradle-changelog-plugin plugin.
@@ -60,8 +62,12 @@ qodana {
 }
 
 // Configure Gradle Kover Plugin - read more: https://github.com/Kotlin/kotlinx-kover#configuration
-kover.xmlReport {
-    onCheck.set(true)
+koverReport {
+    defaults {
+        xml {
+            onCheck = true
+        }
+    }
 }
 
 sourceSets {
@@ -75,6 +81,10 @@ sourceSets {
 tasks {
     wrapper {
         gradleVersion = properties("gradleVersion").get()
+    }
+
+    buildSearchableOptions {
+        enabled = false
     }
 
     patchPluginXml {
