@@ -1,5 +1,3 @@
-# GitHub Actions Workflow verifies if the template repository is consistent with all provided content.
-
 name: Template Verify
 on:
   # Trigger the workflow on pushes to only the 'main' branch (this avoids duplicate checks being run e.g., for dependabot pull requests)
@@ -23,7 +21,7 @@ jobs:
 
       # Check out current repository
       - name: Fetch Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Compare `gradle.properties` with `.github/template-cleanup/gradle.properties`
       - name: Verify gradle.properties
